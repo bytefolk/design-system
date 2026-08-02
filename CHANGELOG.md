@@ -17,3 +17,4 @@ All notable changes to this project will be documented in this file.
 - Keep the clean tarball consumer executable inside an npm publish dry run.
 - Ship ESM and CommonJS entry points so Next.js 14 and Tailwind 3 configuration loaders can consume the preset.
 - Make the CommonJS Tailwind export return the preset directly and provide matching conditional types.
+- Map the CommonJS React entry point to its generated `.d.cts` declarations.
