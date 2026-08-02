@@ -44,6 +44,11 @@ try {
     consumerRoot,
   );
   run(npmCommand, ['exec', 'tsc', '--', '--noEmit'], consumerRoot);
+  run(
+    npmCommand,
+    ['exec', 'tsc', '--', '--noEmit', '--project', 'tsconfig.cjs.json'],
+    consumerRoot,
+  );
   run(process.execPath, ['./src/runtime.mjs'], consumerRoot);
   run(process.execPath, ['./src/runtime.cjs'], consumerRoot);
 
@@ -54,7 +59,9 @@ try {
     !installedFiles.includes('index.d.ts') ||
     !installedFiles.includes('index.cjs') ||
     !installedFiles.includes('tailwind-preset.d.ts') ||
-    !installedFiles.includes('tailwind-preset.cjs')
+    !installedFiles.includes('tailwind-preset.cjs') ||
+    !installedFiles.includes('tailwind-preset-require.cjs') ||
+    !installedFiles.includes('tailwind-preset-require.d.cts')
   ) {
     throw new Error('Packed consumer is missing public declaration files');
   }

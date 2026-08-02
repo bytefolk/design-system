@@ -32,9 +32,14 @@
     },
     "./styles.css": "./dist/index.css",
     "./tailwind-preset": {
-      "types": "./dist/tailwind-preset.d.ts",
-      "import": "./dist/tailwind-preset.js",
-      "require": "./dist/tailwind-preset.cjs",
+      "import": {
+        "types": "./dist/tailwind-preset.d.ts",
+        "default": "./dist/tailwind-preset.js"
+      },
+      "require": {
+        "types": "./dist/tailwind-preset-require.d.cts",
+        "default": "./dist/tailwind-preset-require.cjs"
+      },
       "default": "./dist/tailwind-preset.js"
     }
   },
@@ -48,7 +53,7 @@
   "scripts": {
     "dev": "vite --config vite.showcase.config.ts",
     "build": "npm run build:package && npm run build:showcase",
-    "build:package": "tsup src/index.ts src/tailwind-preset.ts --format esm,cjs --dts --external react --external react-dom --clean --silent",
+    "build:package": "tsup src/index.ts src/tailwind-preset.ts --format esm,cjs --dts --external react --external react-dom --clean --silent && node scripts/copy-cjs-bridge.mjs",
     "build:showcase": "vite build --config vite.showcase.config.ts",
     "preview": "vite preview --config vite.showcase.config.ts",
     "format": "prettier --write .",

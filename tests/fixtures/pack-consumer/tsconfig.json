@@ -9,5 +9,6 @@
     "jsx": "react-jsx",
     "noEmit": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/require-preset.cts"]
 }
