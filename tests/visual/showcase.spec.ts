@@ -1,5 +1,11 @@
 import { expect, test } from '@playwright/test';
 
+const screenshotOptions = {
+  animations: 'disabled' as const,
+  // Keep layout and color regressions strict while allowing small Linux rasterizer differences.
+  maxDiffPixels: 2_000,
+};
+
 test('renders the three products in one light and dark application shell', async ({ page }) => {
   await page.goto('/');
 
@@ -9,17 +15,13 @@ test('renders the three products in one light and dark application shell', async
   await expect(page.getByRole('heading', { name: 'Docs' })).toBeVisible();
   await expect(page.getByRole('main')).toBeVisible();
 
-  await expect(page).toHaveScreenshot('showcase-light.png', {
-    animations: 'disabled',
-  });
+  await expect(page).toHaveScreenshot('showcase-light.png', screenshotOptions);
 
   await page.getByRole('button', { name: 'Switch to dark theme' }).click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await expect(page.getByRole('button', { name: 'Switch to light theme' })).toBeVisible();
 
-  await expect(page).toHaveScreenshot('showcase-dark.png', {
-    animations: 'disabled',
-  });
+  await expect(page).toHaveScreenshot('showcase-dark.png', screenshotOptions);
 });
 
 test('keeps the shell usable with keyboard navigation and reduced motion', async ({ page }) => {
