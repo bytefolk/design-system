@@ -9,5 +9,6 @@ All notable changes to this project will be documented in this file.
 - Add shared application-shell, navigation, page-header, AI, and source-status patterns.
 - Add a responsive Vite showcase for Digital Employees, Memory, and Docs.
 - Add unit, accessibility, keyboard, build, and browser screenshot validation.
+- Make screenshot baselines portable by bundling the showcase font and capturing a fixed viewport.
 - Validate the published tarball from a clean TypeScript/React 18/Tailwind consumer.
 - Document the design decision and Next.js RSC/Vite consumption boundaries.

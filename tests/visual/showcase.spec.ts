@@ -10,7 +10,6 @@ test('renders the three products in one light and dark application shell', async
   await expect(page.getByRole('main')).toBeVisible();
 
   await expect(page).toHaveScreenshot('showcase-light.png', {
-    fullPage: true,
     animations: 'disabled',
   });
 
@@ -19,7 +18,6 @@ test('renders the three products in one light and dark application shell', async
   await expect(page.getByRole('button', { name: 'Switch to light theme' })).toBeVisible();
 
   await expect(page).toHaveScreenshot('showcase-dark.png', {
-    fullPage: true,
     animations: 'disabled',
   });
 });
@@ -70,13 +68,19 @@ test('keeps a dialog centered throughout its entry animation', async ({ page }) 
 
   await page.waitForTimeout(80);
   const duringAnimation = await dialog.boundingBox();
+  const viewport = page.viewportSize();
+  expect(viewport).not.toBeNull();
   expect(duringAnimation).not.toBeNull();
-  expect(Math.abs(duringAnimation!.x + duringAnimation!.width / 2 - 720)).toBeLessThan(3);
-  expect(Math.abs(duringAnimation!.y + duringAnimation!.height / 2 - 500)).toBeLessThan(12);
+  expect(
+    Math.abs(duringAnimation!.x + duringAnimation!.width / 2 - viewport!.width / 2),
+  ).toBeLessThan(3);
+  expect(
+    Math.abs(duringAnimation!.y + duringAnimation!.height / 2 - viewport!.height / 2),
+  ).toBeLessThan(12);
 
   await page.waitForTimeout(600);
   const settled = await dialog.boundingBox();
   expect(settled).not.toBeNull();
-  expect(Math.abs(settled!.x + settled!.width / 2 - 720)).toBeLessThan(2);
-  expect(Math.abs(settled!.y + settled!.height / 2 - 500)).toBeLessThan(2);
+  expect(Math.abs(settled!.x + settled!.width / 2 - viewport!.width / 2)).toBeLessThan(2);
+  expect(Math.abs(settled!.y + settled!.height / 2 - viewport!.height / 2)).toBeLessThan(2);
 });
