@@ -12,7 +12,10 @@ function run(command, args, cwd) {
   const result = spawnSync(command, args, {
     cwd,
     encoding: 'utf8',
-    env: { ...process.env, NO_COLOR: '1' },
+    // `npm publish --dry-run` exports npm_config_dry_run=true to lifecycle
+    // scripts. This fixture must still materialize and install its disposable
+    // tarball so the publish preflight exercises the real consumer contract.
+    env: { ...process.env, NO_COLOR: '1', npm_config_dry_run: 'false' },
   });
 
   if (result.status !== 0) {
@@ -30,7 +33,7 @@ try {
   await cp(fixtureRoot, consumerRoot, { recursive: true });
   const packOutput = run(
     npmCommand,
-    ['pack', '--json', '--pack-destination', consumerRoot],
+    ['pack', '--dry-run=false', '--json', '--pack-destination', consumerRoot],
     repositoryRoot,
   );
   const [{ filename }] = JSON.parse(packOutput);
