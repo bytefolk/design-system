@@ -6,7 +6,7 @@ the component package.
 
 The approved direction is **C — Warm Agent Workspace**: warm ivory canvas, stone navigation,
 charcoal text, sage actions, and lavender reserved for AI affordances. The frozen rules are in
-[ADR 0001](docs/adr/0001-warm-agent-workspace.md).
+[ADR 0001](https://github.com/fullstack-ai-infra/design-system/blob/main/docs/adr/0001-warm-agent-workspace.md).
 
 > Experimental: the package contract is ready for integration work but no stable npm release is
 > promised yet.

@@ -12,3 +12,5 @@ All notable changes to this project will be documented in this file.
 - Make screenshot baselines portable by bundling the showcase font and capturing a fixed viewport.
 - Validate the published tarball from a clean TypeScript/React 18/Tailwind consumer.
 - Document the design decision and Next.js RSC/Vite consumption boundaries.
+- Build distributable files automatically during npm packaging and force public scoped-package access.
+- Add npm repository metadata and stable public documentation links.
