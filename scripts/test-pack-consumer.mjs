@@ -45,11 +45,17 @@ try {
   );
   run(npmCommand, ['exec', 'tsc', '--', '--noEmit'], consumerRoot);
   run(process.execPath, ['./src/runtime.mjs'], consumerRoot);
+  run(process.execPath, ['./src/runtime.cjs'], consumerRoot);
 
   const installedFiles = await readdir(
     path.join(consumerRoot, 'node_modules/@fullstack-ai-infra/ui/dist'),
   );
-  if (!installedFiles.includes('index.d.ts') || !installedFiles.includes('tailwind-preset.d.ts')) {
+  if (
+    !installedFiles.includes('index.d.ts') ||
+    !installedFiles.includes('index.cjs') ||
+    !installedFiles.includes('tailwind-preset.d.ts') ||
+    !installedFiles.includes('tailwind-preset.cjs')
+  ) {
     throw new Error('Packed consumer is missing public declaration files');
   }
 

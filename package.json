@@ -20,18 +20,22 @@
     "README.md",
     "LICENSE"
   ],
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
     },
     "./styles.css": "./dist/index.css",
     "./tailwind-preset": {
       "types": "./dist/tailwind-preset.d.ts",
-      "import": "./dist/tailwind-preset.js"
+      "import": "./dist/tailwind-preset.js",
+      "require": "./dist/tailwind-preset.cjs",
+      "default": "./dist/tailwind-preset.js"
     }
   },
   "engines": {
@@ -44,7 +48,7 @@
   "scripts": {
     "dev": "vite --config vite.showcase.config.ts",
     "build": "npm run build:package && npm run build:showcase",
-    "build:package": "tsup src/index.ts src/tailwind-preset.ts --format esm --dts --external react --external react-dom --clean --silent",
+    "build:package": "tsup src/index.ts src/tailwind-preset.ts --format esm,cjs --dts --external react --external react-dom --clean --silent",
     "build:showcase": "vite build --config vite.showcase.config.ts",
     "preview": "vite preview --config vite.showcase.config.ts",
     "format": "prettier --write .",
