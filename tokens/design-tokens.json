@@ -1,0 +1,397 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "name": "@fullstack-ai-infra/ui",
+  "description": "Warm Agent Workspace semantic design tokens (light+dark). Extracted from design-system/src/styles/tokens.css on 2026-08-23 by Design Lead.",
+  "tokens": {
+    "color": {
+      "canvas": {
+        "$type": "color",
+        "$value": {
+          "light": "#f5f1e8",
+          "dark": "#1e201d"
+        }
+      },
+      "canvas-subtle": {
+        "$type": "color",
+        "$value": {
+          "light": "#eee9df",
+          "dark": "#242622"
+        }
+      },
+      "navigation": {
+        "$type": "color",
+        "$value": {
+          "light": "#e6e1d7",
+          "dark": "#292b27"
+        }
+      },
+      "surface": {
+        "$type": "color",
+        "$value": {
+          "light": "#fbf9f4",
+          "dark": "#272925"
+        }
+      },
+      "surface-raised": {
+        "$type": "color",
+        "$value": {
+          "light": "#fffdf8",
+          "dark": "#2e302c"
+        }
+      },
+      "surface-inset": {
+        "$type": "color",
+        "$value": {
+          "light": "#f0ece3",
+          "dark": "#222420"
+        }
+      },
+      "foreground": {
+        "$type": "color",
+        "$value": {
+          "light": "#282925",
+          "dark": "#efede7"
+        }
+      },
+      "foreground-muted": {
+        "$type": "color",
+        "$value": {
+          "light": "#5f615b",
+          "dark": "#b6b5ad"
+        }
+      },
+      "foreground-subtle": {
+        "$type": "color",
+        "$value": {
+          "light": "#6c6e67",
+          "dark": "#93948c"
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": {
+          "light": "#d9d4ca",
+          "dark": "#3f423c"
+        }
+      },
+      "border-strong": {
+        "$type": "color",
+        "$value": {
+          "light": "#c6c1b7",
+          "dark": "#555950"
+        }
+      },
+      "primary": {
+        "$type": "color",
+        "$value": {
+          "light": "#5f735e",
+          "dark": "#a1b69d"
+        }
+      },
+      "primary-hover": {
+        "$type": "color",
+        "$value": {
+          "light": "#50644f",
+          "dark": "#b2c6ae"
+        }
+      },
+      "primary-foreground": {
+        "$type": "color",
+        "$value": {
+          "light": "#fbfdf8",
+          "dark": "#1c251c"
+        }
+      },
+      "primary-soft": {
+        "$type": "color",
+        "$value": {
+          "light": "#e2e9df",
+          "dark": "#344035"
+        }
+      },
+      "ai": {
+        "$type": "color",
+        "$value": {
+          "light": "#7568a8",
+          "dark": "#b9addc"
+        }
+      },
+      "ai-strong": {
+        "$type": "color",
+        "$value": {
+          "light": "#695c99",
+          "dark": "#b9addc"
+        }
+      },
+      "ai-hover": {
+        "$type": "color",
+        "$value": {
+          "light": "#675a99",
+          "dark": "#c8bde6"
+        }
+      },
+      "ai-foreground": {
+        "$type": "color",
+        "$value": {
+          "light": "#fbfaff",
+          "dark": "#251f36"
+        }
+      },
+      "ai-soft": {
+        "$type": "color",
+        "$value": {
+          "light": "#ebe7f6",
+          "dark": "#3b354d"
+        }
+      },
+      "info": {
+        "$type": "color",
+        "$value": {
+          "light": "#476e84",
+          "dark": "#8eb6ca"
+        }
+      },
+      "info-soft": {
+        "$type": "color",
+        "$value": {
+          "light": "#e1edf2",
+          "dark": "#2c4049"
+        }
+      },
+      "success": {
+        "$type": "color",
+        "$value": {
+          "light": "#537153",
+          "dark": "#9dba9a"
+        }
+      },
+      "success-strong": {
+        "$type": "color",
+        "$value": {
+          "light": "#4c694c",
+          "dark": "#9dba9a"
+        }
+      },
+      "success-soft": {
+        "$type": "color",
+        "$value": {
+          "light": "#e0eadf",
+          "dark": "#314132"
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": {
+          "light": "#8b672b",
+          "dark": "#d4b069"
+        }
+      },
+      "warning-strong": {
+        "$type": "color",
+        "$value": {
+          "light": "#805c20",
+          "dark": "#d4b069"
+        }
+      },
+      "warning-soft": {
+        "$type": "color",
+        "$value": {
+          "light": "#f4e8cf",
+          "dark": "#493d28"
+        }
+      },
+      "danger": {
+        "$type": "color",
+        "$value": {
+          "light": "#9a4e45",
+          "dark": "#d99488"
+        }
+      },
+      "danger-soft": {
+        "$type": "color",
+        "$value": {
+          "light": "#f4dfdb",
+          "dark": "#4d302d"
+        }
+      },
+      "overlay": {
+        "$type": "color",
+        "$value": {
+          "light": "rgb(40 41 37 / 42%)",
+          "dark": "rgb(0 0 0 / 62%)"
+        }
+      },
+      "focus": {
+        "$type": "color",
+        "$value": {
+          "light": "#71866f",
+          "dark": "#acc2a8"
+        }
+      },
+      "selection": {
+        "$type": "color",
+        "$value": {
+          "light": "#dce6d9",
+          "dark": "#3c4a3c"
+        }
+      }
+    },
+    "fontFamily": {
+      "font-sans": {
+        "$type": "fontFamily",
+        "$value": "Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+      },
+      "font-mono": {
+        "$type": "fontFamily",
+        "$value": "'SFMono-Regular', Consolas, 'Liberation Mono', monospace"
+      }
+    },
+    "fontSize": {
+      "text-xs": {
+        "$type": "fontSize",
+        "$value": "0.75rem"
+      },
+      "text-sm": {
+        "$type": "fontSize",
+        "$value": "0.8125rem"
+      },
+      "text-base": {
+        "$type": "fontSize",
+        "$value": "0.9375rem"
+      },
+      "text-lg": {
+        "$type": "fontSize",
+        "$value": "1.0625rem"
+      },
+      "text-xl": {
+        "$type": "fontSize",
+        "$value": "1.25rem"
+      },
+      "text-2xl": {
+        "$type": "fontSize",
+        "$value": "1.625rem"
+      }
+    },
+    "lineHeight": {
+      "leading-tight": {
+        "$type": "lineHeight",
+        "$value": "1.25"
+      },
+      "leading-normal": {
+        "$type": "lineHeight",
+        "$value": "1.55"
+      }
+    },
+    "dimension": {
+      "space-1": {
+        "$type": "dimension",
+        "$value": "0.25rem"
+      },
+      "space-2": {
+        "$type": "dimension",
+        "$value": "0.5rem"
+      },
+      "space-3": {
+        "$type": "dimension",
+        "$value": "0.75rem"
+      },
+      "space-4": {
+        "$type": "dimension",
+        "$value": "1rem"
+      },
+      "space-5": {
+        "$type": "dimension",
+        "$value": "1.25rem"
+      },
+      "space-6": {
+        "$type": "dimension",
+        "$value": "1.5rem"
+      },
+      "space-8": {
+        "$type": "dimension",
+        "$value": "2rem"
+      },
+      "space-10": {
+        "$type": "dimension",
+        "$value": "2.5rem"
+      },
+      "space-12": {
+        "$type": "dimension",
+        "$value": "3rem"
+      },
+      "rail-width": {
+        "$type": "dimension",
+        "$value": "4.5rem"
+      },
+      "sidebar-width": {
+        "$type": "dimension",
+        "$value": "16rem"
+      },
+      "topbar-height": {
+        "$type": "dimension",
+        "$value": "3.75rem"
+      }
+    },
+    "borderRadius": {
+      "radius-sm": {
+        "$type": "borderRadius",
+        "$value": "0.375rem"
+      },
+      "radius-md": {
+        "$type": "borderRadius",
+        "$value": "0.625rem"
+      },
+      "radius-lg": {
+        "$type": "borderRadius",
+        "$value": "0.875rem"
+      },
+      "radius-xl": {
+        "$type": "borderRadius",
+        "$value": "1.125rem"
+      },
+      "radius-full": {
+        "$type": "borderRadius",
+        "$value": "9999px"
+      }
+    },
+    "boxShadow": {
+      "shadow-sm": {
+        "$type": "boxShadow",
+        "$value": {
+          "light": "0 1px 2px rgb(40 41 37 / 6%)",
+          "dark": "0 1px 2px rgb(0 0 0 / 24%)"
+        }
+      },
+      "shadow-md": {
+        "$type": "boxShadow",
+        "$value": {
+          "light": "0 10px 30px rgb(40 41 37 / 9%), 0 2px 8px rgb(40 41 37 / 5%)",
+          "dark": "0 10px 30px rgb(0 0 0 / 28%), 0 2px 8px rgb(0 0 0 / 20%)"
+        }
+      },
+      "shadow-lg": {
+        "$type": "boxShadow",
+        "$value": {
+          "light": "0 24px 64px rgb(40 41 37 / 16%), 0 4px 12px rgb(40 41 37 / 7%)",
+          "dark": "0 24px 64px rgb(0 0 0 / 38%), 0 4px 12px rgb(0 0 0 / 24%)"
+        }
+      }
+    },
+    "duration": {
+      "duration-fast": {
+        "$type": "duration",
+        "$value": "120ms"
+      },
+      "duration-normal": {
+        "$type": "duration",
+        "$value": "180ms"
+      }
+    },
+    "timingFunction": {
+      "ease": {
+        "$type": "timingFunction",
+        "$value": "cubic-bezier(0.2, 0, 0, 1)"
+      }
+    }
+  }
+}

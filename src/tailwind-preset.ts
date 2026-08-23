@@ -110,6 +110,7 @@ const preset = {
       width: {
         rail: 'var(--ui-rail-width)',
         sidebar: 'var(--ui-sidebar-width)',
+        sidebarWide: 'var(--ui-sidebar-wide)',
       },
       height: {
         topbar: 'var(--ui-topbar-height)',
