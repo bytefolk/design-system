@@ -183,7 +183,7 @@ function EmployeePanel() {
           <AIStatus state="ready" label="Ready" />
         </div>
         <div className="showcase-employee">
-          <span className="showcase-employee-avatar is-lavender">R</span>
+          <span className="showcase-employee-avatar is-ai-accent">R</span>
           <span className="showcase-list-copy">
             <strong>Research partner</strong>
             <small>Product research · 6 sources</small>
@@ -222,7 +222,7 @@ function MemoryPanel() {
           <span className="showcase-memory-note__time">10:32</span>
           <p>
             <strong>Decision</strong>
-            <span>Use the shared C design language across all products.</span>
+            <span>Use the shared Ant Design aligned language across all products.</span>
           </p>
         </div>
         <div className="showcase-source-row">
@@ -353,7 +353,7 @@ export function ShowcaseApp() {
         Skip to content
       </a>
       <AppShell
-        aria-label="Warm Agent Workspace showcase"
+        aria-label="fullstack-ai-infra/ui showcase"
         moduleRail={
           <ModuleRail
             items={moduleItems}
@@ -469,16 +469,16 @@ export function ShowcaseApp() {
                 Warm enough for people. Precise enough for infrastructure.
               </h2>
               <p>
-                Paper surfaces, stone navigation, sage actions, and lavender AI cues stay consistent
-                in light and dark themes.
+                Ant Design aligned surfaces, blue primary actions, and purple AI cues stay
+                consistent in light and dark themes.
               </p>
             </div>
             <div className="showcase-token-swatches" aria-label="Core color roles">
-              <span className="is-paper" title="Paper surface" />
-              <span className="is-stone" title="Stone navigation" />
-              <span className="is-sage" title="Sage action" />
-              <span className="is-ai" title="AI lavender" />
-              <span className="is-charcoal" title="Charcoal text" />
+              <span className="is-surface" title="Surface" />
+              <span className="is-navigation" title="Navigation" />
+              <span className="is-primary" title="Primary action" />
+              <span className="is-ai" title="AI purple" />
+              <span className="is-foreground" title="Foreground text" />
             </div>
           </section>
         </div>
