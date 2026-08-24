@@ -1,6 +1,6 @@
 # ADR 0001: Warm Agent Workspace visual language
 
-- Status: Accepted
+- Status: Superseded by [ADR 0002](./0002-antd-design-language.md)
 - Date: 2026-08-02
 - Decision owners: fullstack-ai-infra maintainers
 - Tracks: [issue #1](https://github.com/fullstack-ai-infra/design-system/issues/1)
