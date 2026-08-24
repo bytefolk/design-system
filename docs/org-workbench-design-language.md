@@ -12,21 +12,21 @@ business semantics map onto the existing semantic token contract.
 
 ## 2. Semantic token mapping
 
-| org-workbench semantics | Token | Notes |
-| --- | --- | --- |
-| Canvas / navigation / surface / foreground | `--ui-canvas/navigation/surface/foreground` | full inheritance |
-| Node actions (hire/transfer/confirm) | `--ui-primary*` | human actions, active nav, focus family |
-| Budget bar — healthy segment | `--ui-success*` | budget within limits |
-| Budget bar — warning segment | `--ui-warning*` | threshold (>80%) |
-| Budget bar — over-budget segment | `--ui-danger*` | over-budget nodes highlighted, link to reports |
-| Escalation along reporting line | warning → danger gradient | per org-tree.v1 edges |
-| AI affordances only (`@position`, AIStatus, AI-generated) | `--ui-ai*` | **lavender reserved for AI meaning only** |
-| Audit / evidence / contract info | `--ui-info*` | audit stream, evidence deep links |
-| Removal (laid-off) confirmation | `--ui-danger*` | second-confirm dialog |
-| Drag drop target — legal | `--ui-primary-soft` / `--ui-focus` | legal drop highlight |
-| Drag drop target — illegal | `--ui-danger-soft` | reject on drop |
-| Apply-rejection reason bar | `--ui-danger-soft` + danger text | stable error code surfaced |
-| Read-only / no-permission node | `--ui-foreground-subtle` + lock icon | editing disabled |
+| org-workbench semantics                                   | Token                                       | Notes                                          |
+| --------------------------------------------------------- | ------------------------------------------- | ---------------------------------------------- |
+| Canvas / navigation / surface / foreground                | `--ui-canvas/navigation/surface/foreground` | full inheritance                               |
+| Node actions (hire/transfer/confirm)                      | `--ui-primary*`                             | human actions, active nav, focus family        |
+| Budget bar — healthy segment                              | `--ui-success*`                             | budget within limits                           |
+| Budget bar — warning segment                              | `--ui-warning*`                             | threshold (>80%)                               |
+| Budget bar — over-budget segment                          | `--ui-danger*`                              | over-budget nodes highlighted, link to reports |
+| Escalation along reporting line                           | warning → danger gradient                   | per org-tree.v1 edges                          |
+| AI affordances only (`@position`, AIStatus, AI-generated) | `--ui-ai*`                                  | **lavender reserved for AI meaning only**      |
+| Audit / evidence / contract info                          | `--ui-info*`                                | audit stream, evidence deep links              |
+| Removal (laid-off) confirmation                           | `--ui-danger*`                              | second-confirm dialog                          |
+| Drag drop target — legal                                  | `--ui-primary-soft` / `--ui-focus`          | legal drop highlight                           |
+| Drag drop target — illegal                                | `--ui-danger-soft`                          | reject on drop                                 |
+| Apply-rejection reason bar                                | `--ui-danger-soft` + danger text            | stable error code surfaced                     |
+| Read-only / no-permission node                            | `--ui-foreground-subtle` + lock icon        | editing disabled                               |
 
 Layout: 60px topbar (`--ui-topbar-height`), 72px module rail (`--ui-rail-width`), organization tree
 baseline 288px (`--ui-sidebar-wide`, added in this change), 4px spacing base, radius 6–18px, modal the
@@ -48,12 +48,12 @@ History), with accessible names on icon-only controls.
 
 New primitives pending design-system review, shipped by the client team consuming this package:
 
-| Milestone | Component | Contract / data |
-| --- | --- | --- |
-| D1 | OrgTree / OrgTreeNode / PositionCard / BudgetBar | org-tree.v1 / `/positions/:id` |
-| D2 | OrgTreeDragLayer / BudgetDialog | org apply change list (add = hire incl. budget declaration) |
-| D3 | PositionMention / TurnThread | engine S1 turn contract |
-| D4 | EscalationItem / AuditEntry / EvidenceLink | engine budget stop + reporting seam |
+| Milestone | Component                                        | Contract / data                                             |
+| --------- | ------------------------------------------------ | ----------------------------------------------------------- |
+| D1        | OrgTree / OrgTreeNode / PositionCard / BudgetBar | org-tree.v1 / `/positions/:id`                              |
+| D2        | OrgTreeDragLayer / BudgetDialog                  | org apply change list (add = hire incl. budget declaration) |
+| D3        | PositionMention / TurnThread                     | engine S1 turn contract                                     |
+| D4        | EscalationItem / AuditEntry / EvidenceLink       | engine budget stop + reporting seam                         |
 
 **BudgetBar dual-phase contract**: D1 carries budget declarations only — `consumption=null` degrades
 the bar to a declaration bar; consumption rendering is driven by engine turn data at D3/D4. This keeps

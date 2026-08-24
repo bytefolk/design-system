@@ -21,7 +21,12 @@ const dark = extractBlock(css, "[data-theme='dark']");
 
 function classify(name) {
   const n = name.replace(/^ui-/, '');
-  if (/^(canvas|navigation|surface|foreground|border|primary|ai|info|success|warning|danger|overlay|focus|selection)/.test(n)) return 'color';
+  if (
+    /^(canvas|navigation|surface|foreground|border|primary|ai|info|success|warning|danger|overlay|focus|selection)/.test(
+      n,
+    )
+  )
+    return 'color';
   if (/^font-(sans|mono)$/.test(n)) return 'fontFamily';
   if (/^text-/.test(n)) return 'fontSize';
   if (/^leading-/.test(n)) return 'lineHeight';
@@ -39,9 +44,8 @@ for (const key of Object.keys(light)) {
   const short = key.replace(/^ui-/, '');
   const isColor = group === 'color';
   const darkVal = dark[key];
-  const value = darkVal && darkVal !== light[key]
-    ? { light: light[key], dark: darkVal }
-    : light[key];
+  const value =
+    darkVal && darkVal !== light[key] ? { light: light[key], dark: darkVal } : light[key];
   groups[group] ??= {};
   groups[group][short] = {
     $type: group,
@@ -52,9 +56,12 @@ for (const key of Object.keys(light)) {
 const out = {
   $schema: 'https://design-tokens.github.io/community-group/format/',
   name: '@fullstack-ai-infra/ui',
-  description: 'Warm Agent Workspace semantic design tokens (light+dark). Extracted from design-system/src/styles/tokens.css on 2026-08-23 by Design Lead.',
+  description:
+    'Warm Agent Workspace semantic design tokens (light+dark). Extracted from design-system/src/styles/tokens.css on 2026-08-23 by Design Lead.',
   tokens: groups,
 };
 
 writeFileSync(outPath, JSON.stringify(out, null, 2) + '\n');
-console.log(`Wrote ${outPath}: ${Object.keys(groups).length} groups, ${Object.keys(light).length} tokens (light), ${Object.keys(dark).length} tokens (dark).`);
+console.log(
+  `Wrote ${outPath}: ${Object.keys(groups).length} groups, ${Object.keys(light).length} tokens (light), ${Object.keys(dark).length} tokens (dark).`,
+);
