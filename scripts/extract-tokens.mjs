@@ -42,7 +42,6 @@ const groups = {};
 for (const key of Object.keys(light)) {
   const group = classify(key);
   const short = key.replace(/^ui-/, '');
-  const isColor = group === 'color';
   const darkVal = dark[key];
   const value =
     darkVal && darkVal !== light[key] ? { light: light[key], dark: darkVal } : light[key];
