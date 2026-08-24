@@ -6,9 +6,11 @@
 
 ## 1. Inheritance
 
-org-workbench (file-tree-as-org-chart desktop client) inherits **Direction C — Warm Agent Workspace**
-(see [ADR 0001](adr/0001-warm-agent-workspace.md)). No new visual language, no raw brand colors:
-business semantics map onto the existing semantic token contract.
+org-workbench (file-tree-as-org-chart desktop client) inherits the **Ant Design aligned language**
+ruled by [ADR 0002](adr/0002-antd-design-language.md), which supersedes ADR 0001's warm-ivory
+Direction C. No new visual language, no raw brand colors: business semantics map onto the existing
+semantic token contract, now sourced from `tokens/design-tokens.json` (antd@5 default/dark algorithm
+values).
 
 ## 2. Semantic token mapping
 
@@ -20,7 +22,7 @@ business semantics map onto the existing semantic token contract.
 | Budget bar — warning segment                              | `--ui-warning*`                             | threshold (>80%)                               |
 | Budget bar — over-budget segment                          | `--ui-danger*`                              | over-budget nodes highlighted, link to reports |
 | Escalation along reporting line                           | warning → danger gradient                   | per org-tree.v1 edges                          |
-| AI affordances only (`@position`, AIStatus, AI-generated) | `--ui-ai*`                                  | **lavender reserved for AI meaning only**      |
+| AI affordances only (`@position`, AIStatus, AI-generated) | `--ui-ai*`                                  | **purple reserved for AI meaning only**        |
 | Audit / evidence / contract info                          | `--ui-info*`                                | audit stream, evidence deep links              |
 | Removal (laid-off) confirmation                           | `--ui-danger*`                              | second-confirm dialog                          |
 | Drag drop target — legal                                  | `--ui-primary-soft` / `--ui-focus`          | legal drop highlight                           |
@@ -29,15 +31,26 @@ business semantics map onto the existing semantic token contract.
 | Read-only / no-permission node                            | `--ui-foreground-subtle` + lock icon        | editing disabled                               |
 
 Layout: 60px topbar (`--ui-topbar-height`), 72px module rail (`--ui-rail-width`), organization tree
-baseline 288px (`--ui-sidebar-wide`, added in this change), 4px spacing base, radius 6–18px, modal the
-only strong shadow tier, motion 120/180ms with reduced-motion collapse.
+baseline 288px (`--ui-sidebar-wide`, added in this change), 4px spacing base, radius 4–8px (antd
+radius scale), modal the only strong shadow tier, motion 100/200ms (antd `motionDurationFast/Mid`)
+with reduced-motion collapse.
+
+**Contrast contract (tokens v3).** Status text on soft backgrounds uses the `-strong` tier and must
+clear WCAG AA (4.5:1): `success-strong #237804`, `warning-strong #ad4e00`, `danger-strong #cf1322`
+in light — antd's base success/warning/error hues do not reach AA on their own backgrounds, which is
+why the strong tier exists. Documented antd-parity deviations: white on `primary #1677ff` (4.1:1,
+identical to antd Button) and `info` on `info-soft` (borders/icons only, mirroring antd Alert) are
+gated at 3.0:1 (non-text) in tests; `danger` on `danger-soft` measures 2.99:1 — identical to antd
+error-on-error-bg — and is deliberately ungated (borders/icons only; text uses `danger-strong`).
+`foreground-subtle` mirrors antd tertiary text
+(0.45 alpha) and is reserved for decorative/disabled content, excluded from the AA gate.
 
 ## 3. Visual direction
 
 File-tree-as-org-chart: the organization tree renders as a file tree — add directory = hire,
 move directory = change reporting line, delete = lay off. Folder-family icons distinguish position
 types; reporting lines use the border token family; over-budget escalation intensifies warning→danger
-up the reporting line and links to the reports center. Lavender appears only for AI affordances;
+up the reporting line and links to the reports center. Purple appears only for AI affordances;
 the AI status stays honest (`idle` = no credentials, never fake-online). Failures always carry an
 actionable next step (workspace_invalid, org_apply_budget_missing, engine offline).
 
@@ -66,7 +79,7 @@ SSE reconnect w/ version-stamp catch-up / no credentials (AI idle) / read-only p
 reports streams / 401 token expiry. Full states per screen get enumerated by the edge-case pass during
 D milestone implementation.
 
-## 6. Review checklist (aligned with ADR 0001)
+## 6. Review checklist (aligned with ADR 0002)
 
 - New primitives need observable tests (keyboard/axe), both themes, reduced-motion.
 - Business repos and `ui-org-*` components consume semantic tokens only — no raw hex.

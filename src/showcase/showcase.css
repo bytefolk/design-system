@@ -369,7 +369,7 @@
   place-items: center;
 }
 
-.showcase-employee-avatar.is-lavender {
+.showcase-employee-avatar.is-ai-accent {
   color: var(--ui-ai);
   background: var(--ui-ai-soft);
 }
@@ -503,24 +503,24 @@
   box-shadow: var(--ui-shadow-sm);
 }
 
-.showcase-token-swatches .is-paper {
-  background: #fbf9f4;
+.showcase-token-swatches .is-surface {
+  background: var(--ui-surface);
 }
 
-.showcase-token-swatches .is-stone {
-  background: #e6e1d7;
+.showcase-token-swatches .is-navigation {
+  background: var(--ui-navigation);
 }
 
-.showcase-token-swatches .is-sage {
-  background: #5f735e;
+.showcase-token-swatches .is-primary {
+  background: var(--ui-primary);
 }
 
 .showcase-token-swatches .is-ai {
-  background: #7568a8;
+  background: var(--ui-ai);
 }
 
-.showcase-token-swatches .is-charcoal {
-  background: #282925;
+.showcase-token-swatches .is-foreground {
+  background: var(--ui-foreground);
 }
 
 .showcase-create-grid {

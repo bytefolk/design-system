@@ -9,7 +9,7 @@ const screenshotOptions = {
 test('renders the three products in one light and dark application shell', async ({ page }) => {
   await page.goto('/');
 
-  await expect(page).toHaveTitle(/Warm Agent Workspace/);
+  await expect(page).toHaveTitle(/fullstack-ai-infra\/ui/);
   await expect(page.getByRole('heading', { name: 'Digital Employees' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Memory' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Docs' })).toBeVisible();

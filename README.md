@@ -4,16 +4,19 @@ The shared visual and interaction system for fullstack-ai-infra. It gives Docs, 
 Digital Employee Web applications one warm, trustworthy workspace without moving business logic into
 the component package.
 
-The approved direction is **C — Warm Agent Workspace**: warm ivory canvas, stone navigation,
-charcoal text, sage actions, and lavender reserved for AI affordances. The frozen rules are in
-[ADR 0001](https://github.com/fullstack-ai-infra/design-system/blob/main/docs/adr/0001-warm-agent-workspace.md).
+The design language is **Ant Design aligned**: light-first with a switchable dark theme, antd@5
+default/dark algorithm values as the color baseline, blue primary, and purple reserved for AI
+affordances. The frozen rules are in
+[ADR 0002](https://github.com/fullstack-ai-infra/design-system/blob/main/docs/adr/0002-antd-design-language.md),
+which supersedes ADR 0001's retired "Warm Agent Workspace" direction.
 
 > Experimental: the package contract is ready for integration work but no stable npm release is
 > promised yet.
 
 ## What ships
 
-- Light and dark semantic tokens plus reduced-motion behavior.
+- Light and dark semantic tokens (W3C-format `tokens/design-tokens.json` single source, CSS
+  generated via `npm run tokens:generate`) plus reduced-motion behavior.
 - A Tailwind preset mapped to the same semantic contract.
 - Button, Input, Card, Badge, Dialog, DropdownMenu, Tooltip, and Skeleton primitives.
 - AppShell, ModuleRail, Sidebar, Topbar, PageHeader, AIStatus, and SourceStatus patterns.
@@ -150,7 +153,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(<Button>Continue</B
 
 - Use semantic tokens (`var(--ui-primary)`, `text-ai`, `bg-surface`), never copied hex colors.
 - Use Lucide icons by default and give icon-only controls an accessible name.
-- Use lavender only for AI state and AI action meaning.
+- Use purple only for AI state and AI action meaning.
 - Do not add consumer routes, auth, i18n, editor code, or domain data here.
 - Do not add React to the `digital-employee` runtime. Only its future Web app consumes this package.
 

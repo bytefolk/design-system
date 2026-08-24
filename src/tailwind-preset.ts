@@ -55,6 +55,7 @@ const preset = {
         },
         danger: {
           DEFAULT: 'var(--ui-danger)',
+          strong: 'var(--ui-danger-strong)',
           soft: 'var(--ui-danger-soft)',
         },
         overlay: 'var(--ui-overlay)',
