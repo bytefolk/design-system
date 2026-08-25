@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>org-workbench D-L4 原型 · AntD 浅色默认</title>
+    <!-- D-L4 重建版（2026-08-25）：配方沿用交接书 antd 单文件原型
+     react18.3.1 / react-dom / dayjs / antd@5.24.4 + @babel/standalone
+     裁决约束：树标签=id；树内不显锁/未配齐；repo-owner 在上、下属嵌套、连接线可见、禁平铺；
+     BudgetBar 双阶段 + 三档；对话框诚实状态（idle 不假装在线）。 -->
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z"
+      src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1"
+      src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-DpVxUeeBWjUvUV1czyIHJAjh+jYUZFu2lLakbdua5vbwOrBGi1UgaKCHjTC+x3Ky"
+      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.13/dayjs.min.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-BEC07T3ACIzixe7bTfsLFVsBzE6Tg5Qwj+TmWFtT7wE/yGQQ+Y9p4IHbioy2+Pzs"
+      src="https://cdn.jsdelivr.net/npm/antd@5.24.4/dist/antd.min.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-x/ilTFv/u/eu6YSmkFDZl5V5Mm/pkxxcVv2cVJOrr1J0rvILhMvRBCy6yA75wYBj"
+      src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.4/babel.min.js"
+    ></script>
+    <style>
+      html,
+      body,
+      #root {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei',
+          sans-serif;
+      }
+      .owb-chat-scroll {
+        max-height: 320px;
+        overflow-y: auto;
+        padding: 4px 2px;
+      }
+      .owb-bubble {
+        max-width: 78%;
+        padding: 8px 12px;
+        border-radius: 10px;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      .owb-bubble--user {
+        margin-left: auto;
+      }
+      .owb-tree-card .ant-tree .ant-tree-node-content-wrapper {
+        padding-inline: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel" data-presets="react">
+      const { useState, useMemo, useRef, useEffect } = React;
+      const {
+        ConfigProvider,
+        theme,
+        Layout,
+        Typography,
+        Switch,
+        Tree,
+        Card,
+        Tag,
+        Descriptions,
+        Input,
+        Button,
+        Space,
+        Flex,
+        Progress,
+        Alert,
+        Tooltip,
+        Divider,
+        Badge,
+        Segmented,
+        Empty,
+      } = antd;
+      const { Header, Sider, Content } = Layout;
+      const { Title, Text, Paragraph } = Typography;
+      const { TextArea } = Input;
+
+      /* ---------- 数据：workspace-org.v1 契约镜像（business + Brand 企业根；roles.reportTo 建树） ---------- */
+      const ORG = {
+        schemaVersion: 'workspace-org.v1',
+        business: 'Fullstack AI Infra',
+        description: '全栈 AI 基础设施虚拟团队工作区',
+        owner: 'huyz',
+        updatedAt: '2026-08-25T09:00:00Z',
+        roles: [
+          {
+            id: 'repo-owner',
+            name: '仓库负责人',
+            description: '工作区根岗位，统筹全部岗位与预算。',
+            reportTo: null,
+            mode: 'approval_required',
+            budget: {
+              perTask: { tokens: 200000, iterations: 40 },
+              perDay: { tokens: 1200000, iterations: 200 },
+            },
+          },
+          {
+            id: 'product-p9',
+            name: '产品负责人',
+            description: '骨架定稿与需求裁决；org-workbench 交互骨架单一来源。',
+            reportTo: 'repo-owner',
+            mode: 'approval_required',
+            budget: {
+              perTask: { tokens: 120000, iterations: 30 },
+              perDay: { tokens: 600000, iterations: 120 },
+            },
+          },
+          {
+            id: 'client-lead',
+            name: '客户端负责人',
+            description: '设计规格消费方；ui-org-* 实现与走查 findings 接收人。',
+            reportTo: 'repo-owner',
+            mode: 'approval_required',
+            budget: {
+              perTask: { tokens: 160000, iterations: 35 },
+              perDay: { tokens: 900000, iterations: 180 },
+            },
+          },
+          {
+            id: 'design-lead',
+            name: '设计负责人',
+            description: '设计语言（AntD 对齐）、规格、原型与九维走查。',
+            reportTo: 'client-lead',
+            mode: 'read_only',
+            budget: null,
+          },
+          {
+            id: 'tech-p9',
+            name: '技术负责人',
+            description: '契约仲裁；集成与发版把关。',
+            reportTo: 'repo-owner',
+            mode: 'approval_required',
+            budget: {
+              perTask: { tokens: 160000, iterations: 35 },
+              perDay: { tokens: 900000, iterations: 180 },
+            },
+          },
+        ],
+      };
+
+      /* ---------- 建树：先取 reportTo=null 为第一层，再递归（直接 kids(owner) 会漏 owner 层） ---------- */
+      function buildTreeData(roles) {
+        const byParent = new Map();
+        for (const r of roles) {
+          const key = r.reportTo ?? '__root__';
+          if (!byParent.has(key)) byParent.set(key, []);
+          byParent.get(key).push(r);
+        }
+        const toNodes = (parentKey) =>
+          (byParent.get(parentKey) ?? []).map((r) => ({
+            key: r.id,
+            title: r.id, // 冻结形状：树标签=id，不在树内显示锁/未配齐
+            children: toNodes(r.id),
+          }));
+        return toNodes('__root__');
+      }
+
+      /* ---------- BudgetBar 双阶段三档 ---------- */
+      const TIER_WARNING = 0.8;
+      function tierOf(ratio) {
+        if (ratio > 1) return { cls: 'error', label: '超支' };
+        if (ratio >= TIER_WARNING) return { cls: 'warning', label: '接近上限' };
+        return { cls: 'success', label: '正常' };
+      }
+      function capsText(caps) {
+        if (!caps) return '—';
+        const parts = [];
+        if (caps.tokens !== undefined) parts.push(`${caps.tokens.toLocaleString()} tokens`);
+        if (caps.iterations !== undefined) parts.push(`${caps.iterations} iterations`);
+        return parts.length ? parts.join(' · ') : '—';
+      }
+      function BudgetBar({ role, consumption }) {
+        // 阶段一（申报）：consumption 缺省 → 只渲染申报额度；budget=null → 预算未配齐软徽标
+        if (!role.budget) {
+          return (
+            <Alert
+              type="warning"
+              showIcon
+              message="预算未配齐"
+              description="该岗位未申报 perTask / perDay 预算，org apply 预算门禁将禁用其任务下发。"
+            />
+          );
+        }
+        if (consumption == null) {
+          return (
+            <Descriptions
+              size="small"
+              column={1}
+              bordered
+              items={[
+                { key: 't', label: 'perTask', children: capsText(role.budget.perTask) },
+                { key: 'd', label: 'perDay', children: capsText(role.budget.perDay) },
+              ]}
+            />
+          );
+        }
+        // 阶段二（消耗）：三档色阶
+        const tier = tierOf(consumption);
+        return (
+          <Flex vertical gap={4}>
+            <Flex justify="space-between" align="center">
+              <Text type="secondary">perTask 消耗</Text>
+              <Tag color={tier.cls}>{tier.label}</Tag>
+            </Flex>
+            <Progress
+              percent={Math.round(consumption * 100)}
+              status={
+                consumption > 1 ? 'exception' : consumption >= TIER_WARNING ? 'normal' : 'normal'
+              }
+              strokeColor={
+                consumption > 1
+                  ? undefined
+                  : consumption >= TIER_WARNING
+                    ? 'var(--ant-color-warning)'
+                    : 'var(--ant-color-success)'
+              }
+            />
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              申报：{capsText(role.budget.perTask)} / 日 {capsText(role.budget.perDay)}
+            </Text>
+          </Flex>
+        );
+      }
+
+      /* ---------- 岗位卡片 ---------- */
+      function PositionCard({ role }) {
+        if (!role) return <Empty description="在左侧组织树选择一个岗位" />;
+        return (
+          <Card
+            size="small"
+            title={
+              <Space>
+                <Text strong>{role.id}</Text>
+                <Tag>{role.mode === 'approval_required' ? '需审批' : '只读'}</Tag>
+              </Space>
+            }
+          >
+            <Descriptions
+              size="small"
+              column={1}
+              items={[
+                { key: 'name', label: '名称', children: role.name },
+                { key: 'desc', label: '职责', children: role.description },
+                { key: 'reportTo', label: '汇报给', children: role.reportTo ?? '—（企业根）' },
+              ]}
+            />
+          </Card>
+        );
+      }
+
+      /* ---------- 对话框：气泡式 + 诚实状态（idle 不假装在线） ---------- */
+      const REPORT_FLOWS = [
+        { key: 'task', label: '任务上报', text: '任务上报：D-L4 原型重建完成，请确认验收口径。' },
+        {
+          key: 'exception',
+          label: '异常上报',
+          text: '异常上报：预算未配齐岗位 design-lead，任务下发被门禁拦截。',
+        },
+        {
+          key: 'progress',
+          label: '进度上报',
+          text: '进度上报：D-L5 改造 ADR 0002 已合并（PR #8），tokens v3 待落仓。',
+        },
+      ];
+      function ChatPanel({ agentStatus }) {
+        const [messages, setMessages] = useState([
+          {
+            who: 'agent',
+            text: '你好，我是 repo-owner 岗位的数字员工。输入消息或选择下方上报流。',
+          },
+        ]);
+        const [draft, setDraft] = useState('');
+        const [running, setRunning] = useState(false);
+        const scrollRef = useRef(null);
+        useEffect(() => {
+          scrollRef.current?.scrollTo({ top: 999999, behavior: 'smooth' });
+        }, [messages, running]);
+
+        const send = (text) => {
+          if (!text.trim() || running) return;
+          setMessages((m) => [...m, { who: 'user', text }]);
+          setDraft('');
+          setRunning(true);
+          setTimeout(() => {
+            setMessages((m) => [
+              ...m,
+              {
+                who: 'agent',
+                text: `收到：「${text}」\n已按 org-workbench 契约登记，等待预算门禁与审批流处理。`,
+              },
+            ]);
+            setRunning(false);
+          }, 900);
+        };
+
+        return (
+          <Card
+            size="small"
+            title={
+              <Flex justify="space-between" align="center">
+                <Text strong>岗位对话框</Text>
+                {/* 诚实边界：无凭据/无任务时 idle，绝不假装在线 */}
+                <Badge
+                  status={running ? 'processing' : 'default'}
+                  text={<Text type="secondary">{running ? 'running' : agentStatus}</Text>}
+                />
+              </Flex>
+            }
+          >
+            <div className="owb-chat-scroll" ref={scrollRef}>
+              <Flex vertical gap={8}>
+                {messages.map((m, i) => (
+                  <Flex key={i} justify={m.who === 'user' ? 'flex-end' : 'flex-start'}>
+                    <div
+                      className={'owb-bubble ' + (m.who === 'user' ? 'owb-bubble--user' : '')}
+                      style={{
+                        background:
+                          m.who === 'user'
+                            ? 'var(--ant-color-primary)'
+                            : 'var(--ant-color-fill-secondary)',
+                        color: m.who === 'user' ? '#fff' : 'var(--ant-color-text)',
+                      }}
+                    >
+                      {m.text}
+                    </div>
+                  </Flex>
+                ))}
+                {running && (
+                  <Text type="secondary" style={{ fontSize: 12 }}>
+                    正在处理（running）…
+                  </Text>
+                )}
+              </Flex>
+            </div>
+            <Divider style={{ margin: '12px 0' }} />
+            <Space wrap style={{ marginBottom: 8 }}>
+              {REPORT_FLOWS.map((f) => (
+                <Button key={f.key} size="small" disabled={running} onClick={() => send(f.text)}>
+                  {f.label}
+                </Button>
+              ))}
+            </Space>
+            <Flex gap={8}>
+              <TextArea
+                rows={1}
+                autoSize={{ minRows: 1, maxRows: 3 }}
+                placeholder="输入消息，Enter 发送"
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                onPressEnter={(e) => {
+                  if (!e.shiftKey) {
+                    e.preventDefault();
+                    send(draft);
+                  }
+                }}
+              />
+              <Button
+                type="primary"
+                disabled={running || !draft.trim()}
+                onClick={() => send(draft)}
+              >
+                发送
+              </Button>
+            </Flex>
+          </Card>
+        );
+      }
+
+      /* ---------- 主界面 ---------- */
+      function App() {
+        const [dark, setDark] = useState(false); // 默认浅色，暗色可切
+        const [selected, setSelected] = useState('repo-owner');
+        const treeData = useMemo(() => buildTreeData(ORG.roles), []);
+        const role = ORG.roles.find((r) => r.id === selected) ?? null;
+        const agentStatus = 'idle';
+
+        return (
+          <ConfigProvider
+            theme={{ algorithm: dark ? theme.darkAlgorithm : theme.defaultAlgorithm }}
+          >
+            <Layout style={{ minHeight: '100vh' }}>
+              <Header
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 16,
+                  background: 'var(--ant-color-bg-container)',
+                  borderBottom: '1px solid var(--ant-color-border-secondary)',
+                }}
+              >
+                <Title level={4} style={{ margin: 0 }}>
+                  {ORG.business} · org-workbench
+                </Title>
+                <Tag color="blue">{ORG.schemaVersion}</Tag>
+                <Text type="secondary">owner: {ORG.owner}</Text>
+                <div style={{ marginLeft: 'auto' }}>
+                  <Switch
+                    checkedChildren="暗色"
+                    unCheckedChildren="浅色"
+                    checked={dark}
+                    onChange={setDark}
+                  />
+                </div>
+              </Header>
+              <Layout>
+                <Sider
+                  width={288}
+                  theme="light"
+                  style={{
+                    borderRight: '1px solid var(--ant-color-border-secondary)',
+                    padding: 12,
+                    background: 'var(--ant-color-bg-container)',
+                  }}
+                >
+                  <Text strong style={{ display: 'block', marginBottom: 8 }}>
+                    组织树（org-tree.v1）
+                  </Text>
+                  <div className="owb-tree-card">
+                    <Tree
+                      showLine={{ showLeafIcon: false }}
+                      defaultExpandAll
+                      treeData={treeData}
+                      selectedKeys={[selected]}
+                      onSelect={(keys) => keys[0] && setSelected(keys[0])}
+                    />
+                  </div>
+                  <Text type="secondary" style={{ fontSize: 12, display: 'block', marginTop: 12 }}>
+                    冻结形状：标签=岗位 id；连接线表示汇报关系；锁/未配齐不在树内呈现。
+                  </Text>
+                </Sider>
+                <Content style={{ padding: 16 }}>
+                  <Flex vertical gap={16}>
+                    <Flex gap={16} wrap="wrap">
+                      <div style={{ flex: '1 1 360px', minWidth: 320 }}>
+                        <PositionCard role={role} />
+                      </div>
+                      <div style={{ flex: '1 1 360px', minWidth: 320 }}>
+                        <Card size="small" title={<Text strong>预算（BudgetBar 双阶段）</Text>}>
+                          <BudgetBar role={role ?? { budget: null }} consumption={null} />
+                        </Card>
+                      </div>
+                    </Flex>
+                    <Card size="small" title={<Text strong>预算三档演示（perTask 消耗比）</Text>}>
+                      <Flex gap={16} wrap="wrap">
+                        {[0.42, 0.86, 1.12].map((r) => (
+                          <div key={r} style={{ flex: '1 1 220px', minWidth: 200 }}>
+                            <BudgetBar role={ORG.roles[0]} consumption={r} />
+                          </div>
+                        ))}
+                      </Flex>
+                    </Card>
+                    <ChatPanel agentStatus={agentStatus} />
+                  </Flex>
+                </Content>
+              </Layout>
+            </Layout>
+          </ConfigProvider>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+  </body>
+</html>
