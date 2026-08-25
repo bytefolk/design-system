@@ -1,139 +1,13 @@
-.ui-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--ui-space-2);
-  border: 1px solid transparent;
-  border-radius: var(--ui-radius-md);
-  font-size: var(--ui-text-sm);
-  font-weight: 600;
-  line-height: 1;
-  white-space: nowrap;
-  cursor: pointer;
-  transition:
-    background var(--ui-duration-fast) var(--ui-ease),
-    border-color var(--ui-duration-fast) var(--ui-ease),
-    color var(--ui-duration-fast) var(--ui-ease),
-    transform var(--ui-duration-fast) var(--ui-ease);
-}
-
-.ui-button:active:not(:disabled) {
-  transform: translateY(1px);
-}
-
-.ui-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.52;
-}
-
-.ui-button--sm {
-  min-height: 1.875rem;
-  padding: 0 var(--ui-space-3);
-}
-
-.ui-button--md {
-  min-height: 2.375rem;
-  padding: 0 var(--ui-space-4);
-}
-
-.ui-button--lg {
-  min-height: 2.75rem;
-  padding: 0 var(--ui-space-5);
-  font-size: var(--ui-text-base);
-}
-
-.ui-button--icon {
-  width: 2.375rem;
-  height: 2.375rem;
+/* Converted primitives render antd components (ADR 0002). The ui-* classes
+   remain stable styling hooks; antd cssinjs owns the visuals. */
+.ui-button--icon.ant-btn {
+  width: 2rem;
+  height: 2rem;
   padding: 0;
 }
 
-.ui-button--primary {
-  color: var(--ui-primary-foreground);
-  background: var(--ui-primary);
-  box-shadow: var(--ui-shadow-sm);
-}
-
-.ui-button--primary:hover:not(:disabled) {
-  background: var(--ui-primary-hover);
-}
-
-.ui-button--secondary {
-  color: var(--ui-foreground);
-  background: var(--ui-surface-raised);
-  border-color: var(--ui-border);
-  box-shadow: var(--ui-shadow-sm);
-}
-
-.ui-button--secondary:hover:not(:disabled),
-.ui-button--ghost:hover:not(:disabled) {
-  background: var(--ui-surface-inset);
-  border-color: var(--ui-border-strong);
-}
-
-.ui-button--ghost {
-  color: var(--ui-foreground-muted);
-  background: transparent;
-}
-
-.ui-button--ai {
-  color: var(--ui-ai-foreground);
-  background: var(--ui-ai);
-}
-
-.ui-button--ai:hover:not(:disabled) {
-  background: var(--ui-ai-hover);
-}
-
-.ui-button--danger {
-  color: var(--ui-danger);
-  background: var(--ui-danger-soft);
-}
-
-.ui-input {
+.ui-input.ant-input {
   width: 100%;
-  min-height: 2.375rem;
-  padding: 0 var(--ui-space-3);
-  color: var(--ui-foreground);
-  background: var(--ui-surface-raised);
-  border: 1px solid var(--ui-border);
-  border-radius: var(--ui-radius-md);
-  box-shadow: inset 0 1px 1px rgb(40 41 37 / 3%);
-  font-size: var(--ui-text-sm);
-  transition:
-    border-color var(--ui-duration-fast) var(--ui-ease),
-    box-shadow var(--ui-duration-fast) var(--ui-ease);
-}
-
-.ui-input::placeholder {
-  color: var(--ui-foreground-subtle);
-}
-
-.ui-input:hover:not(:disabled) {
-  border-color: var(--ui-border-strong);
-}
-
-.ui-input:focus-visible {
-  border-color: var(--ui-focus);
-  outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ui-focus) 22%, transparent);
-}
-
-.ui-input[aria-invalid='true'] {
-  border-color: var(--ui-danger);
-}
-
-.ui-input:disabled {
-  cursor: not-allowed;
-  opacity: 0.58;
-}
-
-.ui-card {
-  color: var(--ui-foreground);
-  background: var(--ui-surface);
-  border: 1px solid var(--ui-border);
-  border-radius: var(--ui-radius-lg);
-  box-shadow: var(--ui-shadow-sm);
 }
 
 .ui-card__header {
@@ -166,48 +40,6 @@
   align-items: center;
   gap: var(--ui-space-3);
   padding: 0 var(--ui-space-5) var(--ui-space-5);
-}
-
-.ui-badge {
-  display: inline-flex;
-  align-items: center;
-  width: fit-content;
-  min-height: 1.375rem;
-  padding: 0 var(--ui-space-2);
-  border-radius: var(--ui-radius-full);
-  font-size: var(--ui-text-xs);
-  font-weight: 600;
-  line-height: 1;
-}
-
-.ui-badge--neutral {
-  color: var(--ui-foreground-muted);
-  background: var(--ui-surface-inset);
-}
-
-.ui-badge--success {
-  color: var(--ui-success-strong);
-  background: var(--ui-success-soft);
-}
-
-.ui-badge--warning {
-  color: var(--ui-warning-strong);
-  background: var(--ui-warning-soft);
-}
-
-.ui-badge--danger {
-  color: var(--ui-danger);
-  background: var(--ui-danger-soft);
-}
-
-.ui-badge--ai {
-  color: var(--ui-ai-strong);
-  background: var(--ui-ai-soft);
-}
-
-.ui-badge--info {
-  color: var(--ui-info);
-  background: var(--ui-info-soft);
 }
 
 .ui-dialog__overlay {
@@ -373,10 +205,11 @@
 }
 
 .ui-skeleton {
-  min-height: 1rem;
-  background: var(--ui-surface-inset);
   border-radius: var(--ui-radius-md);
-  animation: ui-pulse 1.6s ease-in-out infinite;
+}
+
+.ui-skeleton .ant-skeleton-paragraph {
+  margin-top: 0;
 }
 
 .ui-app-shell {

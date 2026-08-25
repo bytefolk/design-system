@@ -1,3 +1,4 @@
+import { Tag } from 'antd';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { HTMLAttributes } from 'react';
 
@@ -19,9 +20,24 @@ const badgeVariants = cva('ui-badge', {
   },
 });
 
+const antdColorByTone = {
+  neutral: 'default',
+  success: 'success',
+  warning: 'warning',
+  danger: 'error',
+  ai: 'purple',
+  info: 'processing',
+} as const;
+
 export interface BadgeProps
   extends HTMLAttributes<HTMLSpanElement>, VariantProps<typeof badgeVariants> {}
 
 export function Badge({ className, tone, ...props }: BadgeProps) {
-  return <span className={cn(badgeVariants({ tone }), className)} {...props} />;
+  return (
+    <Tag
+      color={antdColorByTone[tone ?? 'neutral']}
+      className={cn(badgeVariants({ tone }), className)}
+      {...props}
+    />
+  );
 }

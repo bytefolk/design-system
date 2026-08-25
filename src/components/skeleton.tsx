@@ -1,3 +1,4 @@
+import { Skeleton as AntSkeleton } from 'antd';
 import type { HTMLAttributes } from 'react';
 
 import { cn } from '../lib';
@@ -14,6 +15,8 @@ export function Skeleton({
       aria-label={ariaLabel}
       role={ariaLabel ? 'status' : undefined}
       {...props}
-    />
+    >
+      <AntSkeleton active paragraph={{ rows: 1 }} title={false} />
+    </div>
   );
 }

@@ -32,6 +32,9 @@ as the `antd` component library (ruling option b). Specifically:
 - `tokens/design-tokens.json` keeps the W3C Design Tokens format and becomes the single token
   source, versioned as v3 with both light and dark sets. It feeds both the React theme
   (`ConfigProvider` `theme.token`) and the generated CSS variables (`tokens.css`).
+- Erratum (2026-08-25, CEO ruling): the facade aligns to the antd major already running on the
+  org-workbench production line — currently antd@6. Dual majors are rejected; a major bump needs a
+  new ruling.
 
 ### Component contract
 

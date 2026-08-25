@@ -4,9 +4,10 @@ The shared visual and interaction system for fullstack-ai-infra. It gives Docs, 
 Digital Employee Web applications one warm, trustworthy workspace without moving business logic into
 the component package.
 
-The design language is **Ant Design aligned**: light-first with a switchable dark theme, antd@5
+The design language is **Ant Design aligned**: light-first with a switchable dark theme, antd@6
 default/dark algorithm values as the color baseline, blue primary, and purple reserved for AI
-affordances. The frozen rules are in
+affordances. Core primitives (Button, Input, Card, Badge, Skeleton) are facades over antd
+components behind a stable export surface; the frozen rules are in
 [ADR 0002](https://github.com/fullstack-ai-infra/design-system/blob/main/docs/adr/0002-antd-design-language.md),
 which supersedes ADR 0001's retired "Warm Agent Workspace" direction.
 
@@ -18,6 +19,7 @@ which supersedes ADR 0001's retired "Warm Agent Workspace" direction.
 - Light and dark semantic tokens (W3C-format `tokens/design-tokens.json` single source, CSS
   generated via `npm run tokens:generate`) plus reduced-motion behavior.
 - A Tailwind preset mapped to the same semantic contract.
+- `DSProvider`, the theming provider that wires antd's `ConfigProvider` to the design tokens.
 - Button, Input, Card, Badge, Dialog, DropdownMenu, Tooltip, and Skeleton primitives.
 - AppShell, ModuleRail, Sidebar, Topbar, PageHeader, AIStatus, and SourceStatus patterns.
 - A Vite showcase proving Digital Employees, Memory, and Docs in the same shell.
@@ -81,12 +83,27 @@ export function SourceCard() {
 }
 ```
 
-Set a theme on the root element. If no explicit value exists, the operating-system preference is
-used.
+Wrap the application in `DSProvider` once near the root. It configures antd's `ConfigProvider`
+with the design-system seed tokens (guarded by tests against `tokens/design-tokens.json`) and
+switches between the light and dark algorithm:
+
+```tsx
+import { DSProvider } from '@fullstack-ai-infra/ui';
+
+export function App({ children }: { children: React.ReactNode }) {
+  return <DSProvider mode="light">{children}</DSProvider>;
+}
+```
+
+Set the matching theme on the root element so the CSS-variable layer agrees with antd. If no
+explicit value exists, the operating-system preference is used.
 
 ```html
 <html data-theme="light"></html>
 ```
+
+Theme through `DSProvider` and the design-system tokens only; do not override antd tokens ad hoc
+in consumer applications (ADR 0002).
 
 ## Tailwind consumption
 
