@@ -468,7 +468,7 @@ export function ShowcaseApp() {
               <div>
                 <Badge tone="ai">Design system foundation</Badge>
                 <h2 id="foundation-title">
-                  Warm enough for people. Precise enough for infrastructure.
+                  One Ant Design language, for people and infrastructure.
                 </h2>
                 <p>
                   Ant Design aligned surfaces, blue primary actions, and purple AI cues stay
