@@ -2,6 +2,14 @@ import './styles/base.css';
 import './styles/components.css';
 
 export { cn } from './lib';
+export {
+  DSProvider,
+  dsAiTokens,
+  dsSeedTokens,
+  useDSMode,
+  type DSMode,
+  type DSProviderProps,
+} from './ds-provider';
 export { Badge, type BadgeProps } from './components/badge';
 export { Button, buttonVariants, type ButtonProps } from './components/button';
 export {

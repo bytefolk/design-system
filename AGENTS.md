@@ -9,8 +9,14 @@ These instructions apply to the entire repository.
 - Keep packages product-neutral. Business routing, authentication, i18n, editors, and domain data
   belong in consumer repositories.
 - The design language is Ant Design aligned (ADR 0002): light-first with a switchable dark theme,
-  antd@5 default/dark algorithm values as the color baseline, blue `#1677ff` as primary, and purple
-  `#722ed1` reserved for AI affordances. The former warm-ivory "Direction C" is deprecated.
+  antd@6 default/dark algorithm values as the color baseline, blue `#1677ff` as primary, and purple
+  `#722ed1` reserved for AI affordances. The former warm-ivory "Direction C" is deprecated. The
+  package aligns to the single antd major running on the org-workbench production line; dual majors
+  are rejected.
+- Converted primitives (Button, Input, Card, Badge, Skeleton) are facades over antd components
+  behind a stable export surface. Theme through `DSProvider` and `tokens/design-tokens.json`; never
+  override antd tokens ad hoc in this repository or consumers. Keep facade props narrow to what
+  consumers use; pass-through bloat defeats the facade.
 - Accessibility, keyboard navigation, reduced motion, and dark theme are required behavior, not
   optional polish.
 - React must remain a peer dependency. Do not introduce a React dependency into the

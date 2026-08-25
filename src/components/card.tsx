@@ -1,10 +1,16 @@
+import { Card as AntCard } from 'antd';
 import { forwardRef, type HTMLAttributes } from 'react';
 
 import { cn } from '../lib';
 
 export const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('ui-card', className)} {...props} />
+    <AntCard
+      ref={ref}
+      className={cn('ui-card', className)}
+      styles={{ body: { padding: 0 } }}
+      {...props}
+    />
   ),
 );
 Card.displayName = 'Card';

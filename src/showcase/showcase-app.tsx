@@ -36,6 +36,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DSProvider,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -348,141 +349,143 @@ export function ShowcaseApp() {
   );
 
   return (
-    <TooltipProvider delayDuration={350}>
-      <a className="showcase-skip-link" href="#main-content">
-        Skip to content
-      </a>
-      <AppShell
-        aria-label="fullstack-ai-infra/ui showcase"
-        moduleRail={
-          <ModuleRail
-            items={moduleItems}
-            brand={<BrandMark />}
-            footer={
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
-                    onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-                  >
-                    {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent side="right">Toggle color theme</TooltipContent>
-              </Tooltip>
-            }
-          />
-        }
-        sidebar={<WorkspaceSidebar activeModule={activeModule} />}
-        topbar={
-          <Topbar
-            breadcrumbs={
-              <span className="showcase-breadcrumb">
-                Atlas workspace <span>/</span> {moduleDetails[activeModule].name}
-              </span>
-            }
-            actions={
-              <>
-                <label className="showcase-search">
-                  <Search size={15} aria-hidden="true" />
-                  <span className="showcase-visually-hidden">Search workspace</span>
-                  <Input
-                    value={query}
-                    onChange={(event) => setQuery(event.target.value)}
-                    placeholder="Search workspace"
-                  />
-                  <kbd>
-                    <Command size={11} aria-hidden="true" /> K
-                  </kbd>
-                </label>
-                <Button variant="ghost" size="icon" aria-label="Notifications">
-                  <Bell size={18} />
-                </Button>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" aria-label="Workspace menu">
-                      <MoreHorizontal size={18} />
+    <DSProvider mode={theme}>
+      <TooltipProvider delayDuration={350}>
+        <a className="showcase-skip-link" href="#main-content">
+          Skip to content
+        </a>
+        <AppShell
+          aria-label="fullstack-ai-infra/ui showcase"
+          moduleRail={
+            <ModuleRail
+              items={moduleItems}
+              brand={<BrandMark />}
+              footer={
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+                      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                    >
+                      {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
                     </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Workspace</DropdownMenuLabel>
-                    <DropdownMenuItem>Invite people</DropdownMenuItem>
-                    <DropdownMenuItem>Preferences</DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>Documentation</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </>
-            }
-          />
-        }
-      >
-        <div className="showcase-page">
-          <PageHeader
-            eyebrow="Unified workspace"
-            title="Good morning"
-            description="Your employees, memories, and documents share one calm, trustworthy workspace."
-            meta={
-              <>
-                <SourceStatus state="available" label="All systems connected" />
-                <span className="showcase-updated">Updated just now</span>
-              </>
-            }
-            actions={<CreateDialog />}
-          />
+                  </TooltipTrigger>
+                  <TooltipContent side="right">Toggle color theme</TooltipContent>
+                </Tooltip>
+              }
+            />
+          }
+          sidebar={<WorkspaceSidebar activeModule={activeModule} />}
+          topbar={
+            <Topbar
+              breadcrumbs={
+                <span className="showcase-breadcrumb">
+                  Atlas workspace <span>/</span> {moduleDetails[activeModule].name}
+                </span>
+              }
+              actions={
+                <>
+                  <label className="showcase-search">
+                    <Search size={15} aria-hidden="true" />
+                    <span className="showcase-visually-hidden">Search workspace</span>
+                    <Input
+                      value={query}
+                      onChange={(event) => setQuery(event.target.value)}
+                      placeholder="Search workspace"
+                    />
+                    <kbd>
+                      <Command size={11} aria-hidden="true" /> K
+                    </kbd>
+                  </label>
+                  <Button variant="ghost" size="icon" aria-label="Notifications">
+                    <Bell size={18} />
+                  </Button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="icon" aria-label="Workspace menu">
+                        <MoreHorizontal size={18} />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuLabel>Workspace</DropdownMenuLabel>
+                      <DropdownMenuItem>Invite people</DropdownMenuItem>
+                      <DropdownMenuItem>Preferences</DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem>Documentation</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </>
+              }
+            />
+          }
+        >
+          <div className="showcase-page">
+            <PageHeader
+              eyebrow="Unified workspace"
+              title="Good morning"
+              description="Your employees, memories, and documents share one calm, trustworthy workspace."
+              meta={
+                <>
+                  <SourceStatus state="available" label="All systems connected" />
+                  <span className="showcase-updated">Updated just now</span>
+                </>
+              }
+              actions={<CreateDialog />}
+            />
 
-          <section className="showcase-briefing" aria-labelledby="briefing-title">
-            <span className="showcase-briefing__icon">
-              <Sparkles size={19} aria-hidden="true" />
-            </span>
-            <div>
-              <AIStatus state="ready" label="AI briefing" />
-              <h2 id="briefing-title">Three threads are ready for your attention</h2>
-              <p>
-                The answer agent has a response to review, 18 memories were captured, and a product
-                direction document was updated.
-              </p>
-            </div>
-            <Button variant="ai">Review briefing</Button>
-          </section>
+            <section className="showcase-briefing" aria-labelledby="briefing-title">
+              <span className="showcase-briefing__icon">
+                <Sparkles size={19} aria-hidden="true" />
+              </span>
+              <div>
+                <AIStatus state="ready" label="AI briefing" />
+                <h2 id="briefing-title">Three threads are ready for your attention</h2>
+                <p>
+                  The answer agent has a response to review, 18 memories were captured, and a
+                  product direction document was updated.
+                </p>
+              </div>
+              <Button variant="ai">Review briefing</Button>
+            </section>
 
-          <div className="showcase-section-heading">
-            <div>
-              <h2>Your workspace</h2>
-              <p>One interaction language across every infrastructure plane.</p>
+            <div className="showcase-section-heading">
+              <div>
+                <h2>Your workspace</h2>
+                <p>One interaction language across every infrastructure plane.</p>
+              </div>
+              <Button variant="ghost">Manage workspace</Button>
             </div>
-            <Button variant="ghost">Manage workspace</Button>
+
+            <section className="showcase-module-grid" aria-label="Workspace modules">
+              <EmployeePanel />
+              <MemoryPanel />
+              <DocsPanel />
+            </section>
+
+            <section className="showcase-foundation" aria-labelledby="foundation-title">
+              <div>
+                <Badge tone="ai">Design system foundation</Badge>
+                <h2 id="foundation-title">
+                  Warm enough for people. Precise enough for infrastructure.
+                </h2>
+                <p>
+                  Ant Design aligned surfaces, blue primary actions, and purple AI cues stay
+                  consistent in light and dark themes.
+                </p>
+              </div>
+              <div className="showcase-token-swatches" aria-label="Core color roles">
+                <span className="is-surface" title="Surface" />
+                <span className="is-navigation" title="Navigation" />
+                <span className="is-primary" title="Primary action" />
+                <span className="is-ai" title="AI purple" />
+                <span className="is-foreground" title="Foreground text" />
+              </div>
+            </section>
           </div>
-
-          <section className="showcase-module-grid" aria-label="Workspace modules">
-            <EmployeePanel />
-            <MemoryPanel />
-            <DocsPanel />
-          </section>
-
-          <section className="showcase-foundation" aria-labelledby="foundation-title">
-            <div>
-              <Badge tone="ai">Design system foundation</Badge>
-              <h2 id="foundation-title">
-                Warm enough for people. Precise enough for infrastructure.
-              </h2>
-              <p>
-                Ant Design aligned surfaces, blue primary actions, and purple AI cues stay
-                consistent in light and dark themes.
-              </p>
-            </div>
-            <div className="showcase-token-swatches" aria-label="Core color roles">
-              <span className="is-surface" title="Surface" />
-              <span className="is-navigation" title="Navigation" />
-              <span className="is-primary" title="Primary action" />
-              <span className="is-ai" title="AI purple" />
-              <span className="is-foreground" title="Foreground text" />
-            </div>
-          </section>
-        </div>
-      </AppShell>
-    </TooltipProvider>
+        </AppShell>
+      </TooltipProvider>
+    </DSProvider>
   );
 }

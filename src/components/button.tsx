@@ -1,9 +1,18 @@
-import { Slot } from '@radix-ui/react-slot';
+import { Button as AntButton, ConfigProvider } from 'antd';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { forwardRef, type ButtonHTMLAttributes } from 'react';
+import {
+  forwardRef,
+  type FocusEventHandler,
+  type KeyboardEventHandler,
+  type MouseEventHandler,
+  type ReactNode,
+} from 'react';
 
 import { cn } from '../lib';
+import { dsAiTokens, useDSMode } from '../ds-provider';
 
+// Kept for consumers that compose class names directly; the facade itself
+// renders antd buttons (ADR 0002).
 const buttonVariants = cva('ui-button', {
   variants: {
     variant: {
@@ -26,22 +35,63 @@ const buttonVariants = cva('ui-button', {
   },
 });
 
-export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
+const antdTypeByVariant = {
+  primary: 'primary',
+  secondary: 'default',
+  ghost: 'text',
+  ai: 'primary',
+  danger: 'primary',
+} as const;
+
+const antdSizeBySize = {
+  sm: 'small',
+  md: 'middle',
+  lg: 'large',
+  icon: 'middle',
+} as const;
+
+// The facade only passes through props consumers actually use (D-L5 §3.1);
+// data-* attributes pass through for composition triggers such as Radix.
+export interface ButtonProps extends VariantProps<typeof buttonVariants> {
+  children?: ReactNode;
+  className?: string;
+  disabled?: boolean;
+  id?: string;
+  title?: string;
+  tabIndex?: number;
+  type?: 'button' | 'submit' | 'reset';
+  'aria-label'?: string;
+  onClick?: MouseEventHandler<HTMLElement>;
+  onFocus?: FocusEventHandler<HTMLElement>;
+  onBlur?: FocusEventHandler<HTMLElement>;
+  onKeyDown?: KeyboardEventHandler<HTMLElement>;
+  [dataAttribute: `data-${string}`]: unknown;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ asChild = false, className, variant, size, type = 'button', ...props }, ref) => {
-    const Component = asChild ? Slot : 'button';
-    return (
-      <Component
+  ({ className, variant, size, type = 'button', ...props }, ref) => {
+    const mode = useDSMode();
+    const button = (
+      <AntButton
         ref={ref}
         className={cn(buttonVariants({ variant, size }), className)}
-        type={asChild ? undefined : type}
+        type={antdTypeByVariant[variant ?? 'primary']}
+        danger={variant === 'danger'}
+        size={antdSizeBySize[size ?? 'md']}
+        htmlType={type}
         {...props}
       />
     );
+
+    if (variant === 'ai') {
+      return (
+        <ConfigProvider theme={{ hashed: true, token: { ...dsAiTokens[mode] } }}>
+          {button}
+        </ConfigProvider>
+      );
+    }
+
+    return button;
   },
 );
 Button.displayName = 'Button';
