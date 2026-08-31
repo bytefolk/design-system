@@ -9,7 +9,9 @@ const screenshotOptions = {
 test('renders the three products in one light and dark application shell', async ({ page }) => {
   await page.goto('/');
 
-  await expect(page).toHaveTitle(/fullstack-ai-infra\/ui/);
+  await expect(page).toHaveTitle('ByteFolk Design System');
+  await expect(page.getByLabel('ByteFolk', { exact: true })).toBeVisible();
+  await expect(page.getByLabel('ByteFolk Design System showcase', { exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Digital Employees' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Memory' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Docs' })).toBeVisible();
