@@ -100,8 +100,8 @@ const moduleDetails = {
 
 function BrandMark() {
   return (
-    <div className="showcase-brand" aria-label="Fullstack AI Infrastructure">
-      <span>F</span>
+    <div className="showcase-brand" aria-label="ByteFolk">
+      <span>B</span>
     </div>
   );
 }
@@ -355,7 +355,7 @@ export function ShowcaseApp() {
           Skip to content
         </a>
         <AppShell
-          aria-label="fullstack-ai-infra/ui showcase"
+          aria-label="ByteFolk Design System showcase"
           moduleRail={
             <ModuleRail
               items={moduleItems}

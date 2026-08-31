@@ -1,6 +1,6 @@
 # @fullstack-ai-infra/ui
 
-The shared visual and interaction system for fullstack-ai-infra. It gives Docs, Memory, and future
+The shared visual and interaction system for ByteFolk. It gives Docs, Memory, and future
 Digital Employee Web applications one warm, trustworthy workspace without moving business logic into
 the component package.
 

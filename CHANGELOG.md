@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- Update public Design System branding and showcase accessibility labels to ByteFolk.
+
 ## [0.2.0] - 2026-08-25
 
 - Replace the warm-ivory Direction C palette with Ant Design aligned tokens v3 (antd@6
