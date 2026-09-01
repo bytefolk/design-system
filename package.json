@@ -5,11 +5,11 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fullstack-ai-infra/design-system.git"
+    "url": "git+https://github.com/bytefolk/design-system.git"
   },
-  "homepage": "https://github.com/fullstack-ai-infra/design-system#readme",
+  "homepage": "https://github.com/bytefolk/design-system#readme",
   "bugs": {
-    "url": "https://github.com/fullstack-ai-infra/design-system/issues"
+    "url": "https://github.com/bytefolk/design-system/issues"
   },
   "type": "module",
   "sideEffects": [

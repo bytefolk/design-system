@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 - Update public Design System branding and showcase accessibility labels to ByteFolk.
+- Migrate GitHub repository, issue, and package metadata URLs to the canonical
+  `bytefolk` organization while retaining the published `@fullstack-ai-infra/ui`
+  package name.
 
 ## [0.2.0] - 2026-08-25
 
