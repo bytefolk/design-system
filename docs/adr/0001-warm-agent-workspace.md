@@ -2,7 +2,7 @@
 
 - Status: Superseded by [ADR 0002](./0002-antd-design-language.md)
 - Date: 2026-08-02
-- Decision owners: fullstack-ai-infra maintainers
+- Decision owners: ByteFolk maintainers
 - Tracks: [issue #1](https://github.com/bytefolk/design-system/issues/1)
 
 ## Context
