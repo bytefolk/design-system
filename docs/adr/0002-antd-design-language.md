@@ -3,7 +3,7 @@
 - Status: Accepted
 - Date: 2026-08-24
 - Decision owners: 胡总 (final authority), fullstack-ai-infra maintainers
-- Tracks: [issue #7](https://github.com/fullstack-ai-infra/design-system/issues/7)
+- Tracks: [issue #7](https://github.com/bytefolk/design-system/issues/7)
 - Supersedes: [ADR 0001](./0001-warm-agent-workspace.md)
 
 ## Context

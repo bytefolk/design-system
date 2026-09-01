@@ -8,7 +8,7 @@ The design language is **Ant Design aligned**: light-first with a switchable dar
 default/dark algorithm values as the color baseline, blue primary, and purple reserved for AI
 affordances. Core primitives (Button, Input, Card, Badge, Skeleton) are facades over antd
 components behind a stable export surface; the frozen rules are in
-[ADR 0002](https://github.com/fullstack-ai-infra/design-system/blob/main/docs/adr/0002-antd-design-language.md),
+[ADR 0002](https://github.com/bytefolk/design-system/blob/main/docs/adr/0002-antd-design-language.md),
 which supersedes ADR 0001's retired "Warm Agent Workspace" direction.
 
 > Experimental: the package contract is ready for integration work but no stable npm release is
