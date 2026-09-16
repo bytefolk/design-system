@@ -1,5 +1,76 @@
 /* Converted primitives render antd components (ADR 0002). The ui-* classes
    remain stable styling hooks; antd cssinjs owns the visuals. */
+:where(.ui-button.ant-btn) {
+  justify-content: center;
+  text-align: center;
+}
+
+/* Alignment follows the content's purpose, not the surrounding panel. */
+.ui-page-header__copy,
+.ui-card__title,
+.ui-dialog__header,
+.ui-menu__item,
+.ui-sidebar-item {
+  text-align: start;
+}
+
+.ui-data-number {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.ui-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--ui-space-2);
+}
+
+.ui-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ui-space-12) var(--ui-space-6);
+  text-align: center;
+}
+
+.ui-empty-state--compact {
+  padding: var(--ui-space-6) var(--ui-space-4);
+}
+
+.ui-empty-state__icon {
+  margin-bottom: var(--ui-space-3);
+  color: var(--ui-foreground-muted);
+}
+
+.ui-empty-state__icon > svg {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+}
+
+.ui-empty-state__title {
+  margin: 0;
+  color: var(--ui-foreground);
+  font-size: var(--ui-text-sm);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.ui-empty-state__description {
+  max-width: 28rem;
+  margin-top: var(--ui-space-2);
+  color: var(--ui-foreground-muted);
+  font-size: var(--ui-text-sm);
+  line-height: 1.5;
+}
+
+.ui-empty-state__action {
+  margin-top: var(--ui-space-4);
+}
+
 .ui-button--icon.ant-btn {
   width: 2rem;
   height: 2rem;
@@ -370,7 +441,7 @@
   gap: var(--ui-space-2);
   padding: 0 var(--ui-space-2);
   color: var(--ui-foreground-muted);
-  text-align: left;
+  text-align: start;
   background: transparent;
   border: 0;
   border-radius: var(--ui-radius-md);

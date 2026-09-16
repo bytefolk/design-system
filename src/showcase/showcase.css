@@ -611,3 +611,10 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* A navigation action explicitly opts out of a button label default. */
+.showcase-navigation-action {
+  justify-content: flex-start;
+  text-align: start;
+  width: 100%;
+}

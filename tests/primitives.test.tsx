@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createRef } from 'react';
 import { axe } from 'vitest-axe';
 
 import {
@@ -43,6 +44,39 @@ describe('core primitives', () => {
       'aria-invalid',
       'true',
     );
+  });
+
+  it('forwards a native input ref for focus, selection and DOM listeners', () => {
+    const ref = createRef<HTMLInputElement>();
+    const { unmount } = render(
+      <Input ref={ref} aria-label="Rename document" defaultValue="Atlas" />,
+    );
+    const input = screen.getByRole('textbox', { name: 'Rename document' });
+    expect(ref.current).toBe(input);
+    const onFocus = vi.fn();
+    ref.current!.addEventListener('focus', onFocus);
+    ref.current!.focus();
+    expect(input).toHaveFocus();
+    expect(onFocus).toHaveBeenCalledOnce();
+    ref.current!.select();
+    expect(ref.current!.selectionStart).toBe(0);
+    expect(ref.current!.selectionEnd).toBe(5);
+    ref.current!.removeEventListener('focus', onFocus);
+    unmount();
+    expect(ref.current).toBeNull();
+  });
+
+  it('clears and replaces callback refs with native input nodes', () => {
+    const first = vi.fn();
+    const second = vi.fn();
+    const { rerender, unmount } = render(<Input ref={first} aria-label="Search" />);
+    const input = screen.getByRole('textbox', { name: 'Search' });
+    expect(first).toHaveBeenLastCalledWith(input);
+    rerender(<Input ref={second} aria-label="Search" />);
+    expect(first).toHaveBeenLastCalledWith(null);
+    expect(second).toHaveBeenLastCalledWith(input);
+    unmount();
+    expect(second).toHaveBeenLastCalledWith(null);
   });
 
   it('renders cards, badges, and skeleton semantics', () => {

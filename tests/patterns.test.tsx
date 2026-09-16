@@ -3,7 +3,16 @@ import userEvent from '@testing-library/user-event';
 import { Bot, Brain, FileText } from 'lucide-react';
 import { axe } from 'vitest-axe';
 
-import { AIStatus, AppShell, ModuleRail, PageHeader, Sidebar, SourceStatus, Topbar } from '../src';
+import {
+  AIStatus,
+  AppShell,
+  EmptyState,
+  ModuleRail,
+  PageHeader,
+  Sidebar,
+  SourceStatus,
+  Topbar,
+} from '../src';
 
 const railItems = [
   { id: 'employees', label: 'Digital Employees', icon: <Bot />, active: true },
@@ -12,6 +21,35 @@ const railItems = [
 ];
 
 describe('application patterns', () => {
+  it('exposes one empty-state heading and a keyboard reachable consumer action', async () => {
+    const user = userEvent.setup();
+    const onAction = vi.fn();
+    const { container } = render(
+      <EmptyState
+        icon={<FileText aria-label="Decorative document" />}
+        title="No documents yet"
+        description="Create your first document."
+        action={<button onClick={onAction}>Create document</button>}
+      />,
+    );
+    expect(screen.getAllByRole('heading')).toHaveLength(1);
+    expect(screen.getByRole('heading', { name: 'No documents yet' })).toBeVisible();
+    expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    await user.tab();
+    expect(screen.getByRole('button', { name: 'Create document' })).toHaveFocus();
+    await user.keyboard('{Enter}');
+    expect(onAction).toHaveBeenCalledOnce();
+    expect(
+      (await axe(container, { rules: { 'color-contrast': { enabled: false } } })).violations,
+    ).toEqual([]);
+  });
+
+  it('supports a compact read-only empty state without inventing an action', () => {
+    render(<EmptyState compact title="No matching records" description="Try another filter." />);
+    expect(screen.getByRole('heading', { name: 'No matching records' })).toBeVisible();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+  });
+
   it('moves module focus with arrow, Home, and End keys', async () => {
     const user = userEvent.setup();
     render(<ModuleRail items={railItems} />);

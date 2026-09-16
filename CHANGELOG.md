@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- Forward native `HTMLInputElement` refs through the Ant Input facade, preserving focus, selection, DOM listeners and unmount cleanup (#29).
+
+- Add a product-neutral `EmptyState` pattern and semantic alignment rules: reading content starts at the leading edge, comparable numbers and trailing actions end at the trailing edge, compact controls and empty panels center their content. Refs #29.
+
 - Update public Design System branding and showcase accessibility labels to ByteFolk.
 - Migrate GitHub repository, issue, and package metadata URLs to the canonical
   `bytefolk` organization while retaining the published `@fullstack-ai-infra/ui`
