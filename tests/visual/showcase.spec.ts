@@ -6,6 +6,32 @@ const screenshotOptions = {
   maxDiffPixels: 2_000,
 };
 
+test('aligns reading content, actions and empty collections by purpose in both themes', async ({
+  page,
+}) => {
+  await page.goto('/');
+  for (const theme of ['light', 'dark']) {
+    if (theme === 'dark') await page.getByRole('button', { name: 'Switch to dark theme' }).click();
+    await expect(page.locator('.ui-page-header__copy')).toHaveCSS('text-align', 'start');
+    await expect(page.locator('.ui-sidebar-item').first()).toHaveCSS('text-align', 'start');
+    const empty = page.locator('.ui-empty-state');
+    await empty.scrollIntoViewIfNeeded();
+    await expect(empty).toHaveCSS('text-align', 'center');
+    await expect(page.locator('.showcase-navigation-action')).toHaveCSS(
+      'justify-content',
+      'flex-start',
+    );
+    await expect(page.locator('.showcase-navigation-action')).toHaveCSS('text-align', 'start');
+    await expect(empty.getByRole('heading')).toHaveCount(1);
+    await expect(empty.getByRole('button')).toHaveCount(1);
+    await expect(empty.getByRole('button')).toHaveCSS('text-align', 'center');
+    await page.getByRole('button', { name: 'Create', exact: true }).click();
+    await expect(page.locator('.ui-dialog__header')).toHaveCSS('text-align', 'start');
+    await expect(page.locator('.ui-dialog__footer')).toHaveCSS('justify-content', 'flex-end');
+    await page.keyboard.press('Escape');
+  }
+});
+
 test('renders the three products in one light and dark application shell', async ({ page }) => {
   await page.goto('/');
 

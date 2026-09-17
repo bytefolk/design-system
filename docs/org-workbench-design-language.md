@@ -9,7 +9,7 @@
 org-workbench (file-tree-as-org-chart desktop client) inherits the **Ant Design aligned language**
 ruled by [ADR 0002](adr/0002-antd-design-language.md), which supersedes ADR 0001's warm-ivory
 Direction C. No new visual language, no raw brand colors: business semantics map onto the existing
-semantic token contract, now sourced from `tokens/design-tokens.json` (antd@5 default/dark algorithm
+semantic token contract, now sourced from `tokens/design-tokens.json` (antd@6 default/dark algorithm
 values).
 
 ## 2. Semantic token mapping

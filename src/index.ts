@@ -56,6 +56,7 @@ export { Input, type InputProps } from './components/input';
 export { Skeleton } from './components/skeleton';
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './components/tooltip';
 export { AppShell, type AppShellProps } from './patterns/app-shell';
+export { EmptyState, type EmptyStateProps } from './patterns/empty-state';
 export { ModuleRail, type ModuleRailItem, type ModuleRailProps } from './patterns/module-rail';
 export { PageHeader, type PageHeaderProps } from './patterns/page-header';
 export {

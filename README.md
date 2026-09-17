@@ -194,3 +194,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(<Button>Continue</B
 ## License
 
 Apache-2.0. See [LICENSE](LICENSE).
+
+## Semantic alignment and empty states
+
+See [the cross-product layout contract](docs/semantic-alignment.md) for start/end/center rules, the `EmptyState` API, and temporary consumer adapters.

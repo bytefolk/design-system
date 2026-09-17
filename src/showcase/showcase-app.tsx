@@ -43,6 +43,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  EmptyState,
   Input,
   ModuleRail,
   PageHeader,
@@ -482,6 +483,21 @@ export function ShowcaseApp() {
                 <span className="is-ai" title="AI purple" />
                 <span className="is-foreground" title="Foreground text" />
               </div>
+            </section>
+            <section aria-label="Empty collection example">
+              <Button
+                variant="ghost"
+                className="showcase-navigation-action"
+                onClick={() => setActiveModule('docs')}
+              >
+                <FileText size={16} aria-hidden="true" /> Documents
+              </Button>
+              <EmptyState
+                icon={<FileText />}
+                title="No documents yet"
+                description="Create your first document when you are ready to write."
+                action={<Button onClick={() => setActiveModule('docs')}>Explore Docs</Button>}
+              />
             </section>
           </div>
         </AppShell>
