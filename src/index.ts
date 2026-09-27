@@ -53,6 +53,7 @@ export {
   DropdownMenuTrigger,
 } from './components/dropdown-menu';
 export { Input, type InputProps } from './components/input';
+export { Select, type SelectProps } from './components/select';
 export { Skeleton } from './components/skeleton';
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './components/tooltip';
 export { AppShell, type AppShellProps } from './patterns/app-shell';
