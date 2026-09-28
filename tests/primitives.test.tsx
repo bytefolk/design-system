@@ -19,6 +19,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   Input,
+  Select,
   Skeleton,
   Tooltip,
   TooltipContent,
@@ -44,6 +45,20 @@ describe('core primitives', () => {
       'aria-invalid',
       'true',
     );
+  });
+
+  it('renders the shared select with a stable hook and invalid state', () => {
+    render(
+      <Select
+        aria-label="Workspace scope"
+        invalid
+        value="project"
+        options={[{ value: 'project', label: 'Project' }]}
+      />,
+    );
+    const select = screen.getByRole('combobox', { name: 'Workspace scope' });
+    expect(select.closest('.ui-select')).toBeInTheDocument();
+    expect(select).toHaveAttribute('aria-invalid', 'true');
   });
 
   it('forwards a native input ref for focus, selection and DOM listeners', () => {
